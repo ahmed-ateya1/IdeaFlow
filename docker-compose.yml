@@ -1,0 +1,14 @@
+services:
+  mindmapgenerator.api:
+    image: mindmapgeneratorapi
+    build:
+      context: .
+      dockerfile: MindMapGenerator.API/Dockerfile
+    ports:
+      - "8080:8080"
+    networks: 
+      - mindmapgenerator
+networks:
+    mindmapgenerator:
+       driver: bridge
+    

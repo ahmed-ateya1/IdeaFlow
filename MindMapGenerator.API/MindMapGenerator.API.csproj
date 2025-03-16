@@ -8,6 +8,7 @@
     <DocumentationFile>api.xml</DocumentationFile>
     <UserSecretsId>972c7530-c368-4b8c-97ed-af93a387e0db</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
