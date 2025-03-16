@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMapGenerator.API", "MindMapGenerator.API\MindMapGenerator.API.csproj", "{3A3A7217-A388-40B2-9723-F51D85521E0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMapGenerator.Infrastructure", "MindMapGenerator.Infrastructure\MindMapGenerator.Infrastructure.csproj", "{0CAA4A68-FBB5-4E68-AAC3-49AD993D2005}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMapGenerator.Core", "MindMapGenerator.Core\MindMapGenerator.Core.csproj", "{FA393AC3-AC01-4EA1-9CBE-1B00FA20C3F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A3A7217-A388-40B2-9723-F51D85521E0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A3A7217-A388-40B2-9723-F51D85521E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A3A7217-A388-40B2-9723-F51D85521E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A3A7217-A388-40B2-9723-F51D85521E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CAA4A68-FBB5-4E68-AAC3-49AD993D2005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CAA4A68-FBB5-4E68-AAC3-49AD993D2005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CAA4A68-FBB5-4E68-AAC3-49AD993D2005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CAA4A68-FBB5-4E68-AAC3-49AD993D2005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA393AC3-AC01-4EA1-9CBE-1B00FA20C3F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA393AC3-AC01-4EA1-9CBE-1B00FA20C3F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA393AC3-AC01-4EA1-9CBE-1B00FA20C3F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA393AC3-AC01-4EA1-9CBE-1B00FA20C3F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47824140-3487-4443-A017-40CC6B9CB303}
+	EndGlobalSection
+EndGlobal

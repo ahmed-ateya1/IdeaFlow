@@ -1,0 +1,6 @@
+@MindMapGenerator.API_HostAddress = http://localhost:5126
+
+GET {{MindMapGenerator.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

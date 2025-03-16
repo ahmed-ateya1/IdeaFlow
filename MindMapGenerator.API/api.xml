@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MindMapGenerator.API</name>
+    </assembly>
+    <members>
+        <member name="T:MindMapGenerator.API.Controllers.AccountController">
+            <summary>
+            Manages user accounts, including registration, login, password reset, roles, and token handling.
+            </summary>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.#ctor(MindMapGenerator.Core.ServiceContracts.IAuthenticationServices,Microsoft.AspNetCore.Identity.UserManager{MindMapGenerator.Core.Domain.IdentityEntities.ApplicationUser},Microsoft.AspNetCore.Identity.UI.Services.IEmailSender,Microsoft.AspNetCore.Identity.SignInManager{MindMapGenerator.Core.Domain.IdentityEntities.ApplicationUser},MindMapGenerator.Core.Domain.RepositoryContract.IUnitOfWork,Microsoft.AspNetCore.Identity.IPasswordHasher{MindMapGenerator.Core.Domain.IdentityEntities.ApplicationUser},Microsoft.Extensions.Logging.ILogger{MindMapGenerator.API.Controllers.AccountController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:MindMapGenerator.API.Controllers.AccountController"/> class.
+            </summary>
+            <param name="authenticationServices">Authentication service.</param>
+            <param name="userManager">User manager service.</param>
+            <param name="emailSender">Email sender service.</param>
+            <param name="signInManager">Sign-in manager service.</param>
+            <param name="unitOfWork">Unit of work service.</param>
+            <param name="passwordHasher">Password hasher service.</param>
+            <param name="logger">Logger instance for logging controller actions.</param>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.RegisterCleintAsync(MindMapGenerator.Core.Dtos.AuthenticationDto.RegisterDTO)">
+            <summary>
+            Registers a new client account.
+            </summary>
+            <param name="registerDTO">Client registration details.</param>
+            <returns>Authentication response with token and status.</returns>
+            <response code="200">Client registered successfully.</response>
+            <response code="400">Invalid input or request.</response>
+            <response code="500">Internal server error.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.LoginAsync(MindMapGenerator.Core.Dtos.AuthenticationDto.LoginDTO)">
+            <summary>
+            Logs in a user or company.
+            </summary>
+            <param name="loginDTO">Login credentials (email, password).</param>
+            <returns>Authentication response with token and status.</returns>
+            <response code="200">Login successful.</response>
+            <response code="400">Invalid credentials or input.</response>
+            <response code="500">Internal server error.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.ForgotPassword(MindMapGenerator.Core.Dtos.AuthenticationDto.ForgotPasswordDTO)">
+            <summary>
+            Sends a password reset OTP to the user's email.
+            </summary>
+            <param name="forgotPassword">Email to send the password reset link to.</param>
+            <returns>Status message.</returns>
+            <response code="200">Password reset OTP sent successfully.</response>
+            <response code="400">Invalid input.</response>
+            <response code="500">Internal server error.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.ResetPassword(MindMapGenerator.Core.Dtos.AuthenticationDto.ResetPasswordDTO)">
+            <summary>
+            Resets the user's password using an OTP.
+            </summary>
+            <param name="resetPassword">Reset password request details, including OTP.</param>
+            <returns>Status message.</returns>
+            <response code="200">Password reset successfully.</response>
+            <response code="400">Invalid OTP or request.</response>
+            <response code="500">Internal server error.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.ChangePassword(MindMapGenerator.Core.Dtos.AuthenticationDto.ChangePasswordRequest)">
+            <summary>
+            Changes the user's password.
+            </summary>
+            <param name="model">Change password request details.</param>
+            <returns>Status message.</returns>
+            <response code="200">Password changed successfully.</response>
+            <response code="400">Invalid current password.</response>
+            <response code="404">User not found.</response>
+            <response code="500">Internal server error.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.VerifyOtp(MindMapGenerator.Core.Dtos.AuthenticationDto.OtpVerificationRequest)">
+            <summary>
+            Verifies the OTP code.
+            </summary>
+            <param name="request">OTP verification request.</param>
+            <returns>Status message.</returns>
+            <response code="200">OTP verified successfully.</response>
+            <response code="400">Invalid or expired OTP.</response>
+            <response code="500">Internal server error.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.RevokeToken(MindMapGenerator.Core.Dtos.AuthenticationDto.RevokTokenDTO)">
+            <summary>
+            Revokes a refresh token.
+            </summary>
+            <param name="revokTokenDTO">Token details to revoke.</param>
+            <returns>Status message.</returns>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.AddRoleAsync(MindMapGenerator.Core.Dtos.AuthenticationDto.AddRoleDTO)">
+            <summary>
+            Adds a new role to the user.
+            </summary>
+            <param name="model">Role details to assign.</param>
+            <returns>Status message.</returns>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.IsEmailInUse(System.String)">
+            <summary>
+            Checks if the email is already in use.
+            </summary>
+            <param name="email">The email to check.</param>
+            <returns>True if the email is in use; otherwise, false.</returns>
+            <response code="200">Check successful, result returned.</response>
+            <response code="500">Internal server error.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.GetUserInfo(System.Guid)">
+            <summary>
+            Retrieves user information based on the provided user ID.
+            </summary>
+            <param name="userID">The unique identifier (GUID) of the user to retrieve.</param>
+            <returns>
+            An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the user details if found,
+            or a not found response if the user does not exist.
+            </returns>
+            <response code="200">Returns the user information when the user is found.</response>
+            <response code="404">Returned when no user matches the provided user ID.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.GetUsers">
+            <summary>
+            Retrieves all users from the system asynchronously.
+            </summary>
+            <remarks>
+            This endpoint logs the process of fetching users and returns an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> containing the result.
+            If no users are found, a 404 Not Found response is returned; otherwise, a 200 OK response is returned with the list of users.
+            </remarks>
+            <returns>
+            A task that represents the asynchronous operation, containing an <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> with an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/>.
+            The response includes a success flag, message, status code, and the list of users if successful.
+            </returns>
+            <response code="200">Returns the list of users when retrieval is successful.</response>
+            <response code="404">Returned when no users are found in the system.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.RefreshToken">
+            <summary>
+            Refreshes the user's authentication token.
+            </summary>
+            <returns>New authentication token.</returns>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.AccountController.SetRefreshToken(System.String,System.DateTime)">
+            <summary>
+            Sets the refresh token cookie in the response.
+            </summary>
+            <param name="refreshToken">The refresh token string.</param>
+            <param name="expires">The expiration time for the token.</param>
+        </member>
+        <member name="T:MindMapGenerator.API.Controllers.DiagramController">
+            <summary>
+            Controller responsible for handling CRUD operations and retrieval of diagrams in the MindMapGenerator application.
+            </summary>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.#ctor(MindMapGenerator.Core.ServiceContracts.IDiagramService,Microsoft.Extensions.Logging.ILogger{MindMapGenerator.API.Controllers.DiagramController},MindMapGenerator.Core.Domain.RepositoryContract.IUserContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MindMapGenerator.API.Controllers.DiagramController"/> class.
+            </summary>
+            <param name="diagramService">The service used to manage diagram-related operations.</param>
+            <param name="logger">The logger instance for logging controller activities.</param>
+            <param name="userContext">The user context to retrieve information about the current authenticated user.</param>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.AddDiagram(MindMapGenerator.Core.Dtos.DiagramDto.DiagramAddRequest)">
+            <summary>
+            Creates a new diagram based on the provided request data.
+            </summary>
+            <param name="request">The data required to create a new diagram.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the result of the operation.</returns>
+            <response code="200">Returns the created diagram details if successful.</response>
+            <response code="400">Returned if the diagram creation fails.</response>
+            <response code="500">Returned if an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.UpdateDiagram(MindMapGenerator.Core.Dtos.DiagramDto.DiagramUpdateRequest)">
+            <summary>
+            Updates an existing diagram with the provided request data.
+            </summary>
+            <param name="request">The data required to update an existing diagram.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the result of the operation.</returns>
+            <response code="200">Returns the updated diagram details if successful.</response>
+            <response code="400">Returned if the diagram update fails.</response>
+            <response code="500">Returned if an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.DeleteDiagram(System.Guid)">
+            <summary>
+            Deletes a diagram by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier (GUID) of the diagram to delete.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the result of the operation.</returns>
+            <response code="200">Returns a success message if the diagram is deleted.</response>
+            <response code="400">Returned if the diagram deletion fails.</response>
+            <response code="500">Returned if an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.GetDiagram(System.Guid)">
+            <summary>
+            Retrieves a specific diagram by its unique identifier.
+            </summary>
+            <param name="id">The unique identifier (GUID) of the diagram to retrieve.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the diagram details.</returns>
+            <response code="200">Returns the requested diagram if found.</response>
+            <response code="400">Returned if the diagram is not found or retrieval fails.</response>
+            <response code="500">Returned if an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.GetAllDiagrams(MindMapGenerator.Core.Dtos.PaginationDto)">
+            <summary>
+            Retrieves a paginated list of all diagrams.
+            </summary>
+            <param name="pagination">The pagination parameters (e.g., page number, page size).</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the list of diagrams.</returns>
+            <response code="200">Returns the list of all diagrams if successful.</response>
+            <response code="400">Returned if the retrieval fails.</response>
+            <response code="500">Returned if an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.GetPublicDiagrams(MindMapGenerator.Core.Dtos.PaginationDto)">
+            <summary>
+            Retrieves a paginated list of public diagrams.
+            </summary>
+            <param name="pagination">The pagination parameters (e.g., page number, page size).</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the list of public diagrams.</returns>
+            <response code="200">Returns the list of public diagrams if successful.</response>
+            <response code="400">Returned if the retrieval fails.</response>
+            <response code="500">Returned if an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.GetUserDiagrams(MindMapGenerator.Core.Dtos.PaginationDto)">
+            <summary>
+            Retrieves a paginated list of diagrams belonging to the authenticated user.
+            </summary>
+            <param name="pagination">The pagination parameters (e.g., page number, page size).</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the list of user-specific diagrams.</returns>
+            <response code="200">Returns the list of user diagrams if successful.</response>
+            <response code="400">Returned if the retrieval fails.</response>
+            <response code="401">Returned if the user is not authenticated.</response>
+            <response code="500">Returned if an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.GetDiagrams(System.String)">
+            <summary>
+            Retrieves a list of diagrams whose titles contain the specified search string, ignoring case sensitivity.
+            </summary>
+            <param name="title">The string to search for within diagram titles. The search is case-insensitive.</param>
+            <returns>
+            An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the list of matching diagrams.
+            </returns>
+            <response code="200">Returns the list of diagrams whose titles match the search string if successful.</response>
+            <response code="400">Returned if no diagrams are found or the retrieval fails.</response>
+            <response code="500">Returned if an internal server error occurs during the operation.</response>
+            <remarks>
+            This method performs a case-insensitive search by converting both the diagram title and the search string to uppercase
+            before checking for containment. If no diagrams match the criteria, a bad request response is returned.
+            </remarks>
+        </member>
+        <member name="T:MindMapGenerator.API.Controllers.FavoriteController">
+            <summary>
+            Controller for managing favorite operations in the MindMapGenerator application.
+            </summary>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.FavoriteController.#ctor(MindMapGenerator.Core.ServiceContracts.IFavoriteService,Microsoft.Extensions.Logging.ILogger{MindMapGenerator.API.Controllers.FavoriteController},MindMapGenerator.Core.Domain.RepositoryContract.IUserContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MindMapGenerator.API.Controllers.FavoriteController"/> class.
+            </summary>
+            <param name="favoriteService">The favorite service instance.</param>
+            <param name="logger">The logger instance for logging operations.</param>
+            <param name="userContext">The user context for retrieving current user information.</param>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.FavoriteController.AddFavorite(MindMapGenerator.Core.Dtos.FavoriteDto.FavoriteAddRequest)">
+            <summary>
+            Adds a new favorite for the authenticated user.
+            </summary>
+            <param name="request">The request containing favorite details.</param>
+            <returns>An <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> indicating the result of the operation.</returns>
+            <response code="200">Returns when the favorite is added successfully.</response>
+            <response code="400">Returns when the request is invalid.</response>
+            <response code="500">Returns when an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.FavoriteController.DeleteFavorite(System.Guid)">
+            <summary>
+            Deletes a favorite by its ID.
+            </summary>
+            <param name="id">The ID of the favorite to delete.</param>
+            <returns>An <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> indicating the result of the operation.</returns>
+            <response code="200">Returns when the favorite is deleted successfully.</response>
+            <response code="400">Returns when the favorite is not found.</response>
+            <response code="500">Returns when an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.FavoriteController.GetFavorite(System.Guid)">
+            <summary>
+            Retrieves a favorite by its ID.
+            </summary>
+            <param name="id">The ID of the favorite to retrieve.</param>
+            <returns>An <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> containing the favorite details.</returns>
+            <response code="200">Returns when the favorite is found.</response>
+            <response code="404">Returns when the favorite is not found.</response>
+            <response code="500">Returns when an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.FavoriteController.GetFavorites">
+            <summary>
+            Retrieves all favorites.
+            </summary>
+            <returns>An <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> containing all favorites.</returns>
+            <response code="200">Returns when favorites are found.</response>
+            <response code="404">Returns when no favorites are found.</response>
+            <response code="500">Returns when an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.FavoriteController.GetFavoritesByUser">
+            <summary>
+            Retrieves all favorites for the authenticated user.
+            </summary>
+            <returns>An <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> containing the user's favorites.</returns>
+            <response code="200">Returns when favorites are found.</response>
+            <response code="404">Returns when no favorites are found.</response>
+            <response code="401">Returns when the user is not authenticated.</response>
+            <response code="500">Returns when an internal server error occurs.</response>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.FavoriteController.GetFavoritesByDiagram(System.Guid)">
+            <summary>
+            Retrieves all favorites for a specific diagram.
+            </summary>
+            <param name="diagramId">The ID of the diagram to retrieve favorites for.</param>
+            <returns>An <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> containing the diagram's favorites.</returns>
+            <response code="200">Returns when favorites are found.</response>
+            <response code="404">Returns when no favorites are found.</response>
+            <response code="500">Returns when an internal server error occurs.</response>
+        </member>
+        <member name="T:MindMapGenerator.API.Controllers.GeneratorController">
+            <summary>
+            Controller responsible for generating mind maps or text responses using external AI services (Gemini and DeepSeek).
+            </summary>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.GeneratorController.#ctor(MindMapGenerator.Core.HttpClients.IDeepSeekService,MindMapGenerator.Core.HttpClients.IGeminiService,Microsoft.Extensions.Logging.ILogger{MindMapGenerator.API.Controllers.GeneratorController})">
+            <summary>
+            Initializes a new instance of the GeneratorController with dependency injection.
+            </summary>
+            <param name="deepSeekService">The service to interact with DeepSeek API.</param>
+            <param name="geminiService">The service to interact with Gemini API.</param>
+            <param name="logger">The logger instance for logging controller events.</param>
+        </member>
+        <member name="M:MindMapGenerator.API.Controllers.GeneratorController.Generate(MindMapGenerator.Core.Dtos.ExternalDto.GenerateTextRequest)">
+            <summary>
+            Generates a mind map or text response based on the provided prompt and model option.
+            </summary>
+            <param name="request">The request object containing the prompt and model option (GEMINI or DEEPSEEK).</param>
+            <returns>
+            An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing an <see cref="T:MindMapGenerator.Core.Dtos.ApiResponse"/> with the result or error details.
+            Returns 200 OK on success, 400 BadRequest on invalid input or empty response.
+            </returns>
+            <remarks>
+            This method logs warnings when an empty response is received from the selected model.
+            It uses local validation and error handling instead of relying on a global exception handler.
+            </remarks>
+        </member>
+        <member name="M:MindMapGenerator.API.Middlewares.ExceptionHandlingMiddleware.HandleExceptionAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception)">
+            <summary>
+            Handles exceptions and writes a standardized response.
+            </summary>
+        </member>
+    </members>
+</doc>
