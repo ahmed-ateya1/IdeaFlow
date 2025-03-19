@@ -5,5 +5,6 @@
         public string Title { get; set; }
         public string ContentJson { get; set; }
         public bool IsPublic { get; set; } = false;
+        public Guid? BaseDiagramID { get; set; } 
     }
 }

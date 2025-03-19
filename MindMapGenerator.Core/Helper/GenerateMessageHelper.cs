@@ -79,5 +79,12 @@
                 ";
         }
 
+        public static string GenerateDescription(string prompt)
+        {
+
+            return $"Please Give me Description for this mind map by using this React flow json {prompt} " +
+                $"Note I want to return me only description and Not more than 200 characters ";
+        }
+
     }
 }

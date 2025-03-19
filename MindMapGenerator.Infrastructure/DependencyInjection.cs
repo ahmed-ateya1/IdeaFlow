@@ -20,7 +20,7 @@ namespace MindMapGenerator.Infrastructure
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")
+                    configuration.GetConnectionString("HostingConnection")
                 ));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserContext, UserContext>();

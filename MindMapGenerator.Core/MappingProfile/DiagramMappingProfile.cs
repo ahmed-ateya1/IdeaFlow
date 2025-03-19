@@ -20,6 +20,10 @@ namespace MindMapGenerator.Core.MappingProfile
 
             CreateMap<Diagram, DiagramResponse>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.User.FullName))
+                .ForMember(dest => dest.NumberOfFavorites, opt => opt.MapFrom(src => src.Favorites.Count))
+                .ForMember(dest=>dest.BaseDiagramID, opt => opt.MapFrom(src => src.BaseDiagramID))
+                .ForMember(dest => dest.BaseDiagramTitle, opt => opt.MapFrom(src => src.BaseDiagram.Title))
+                .ForMember(dest => dest.BaseDiagramContentJson, opt => opt.MapFrom(src => src.BaseDiagram.ContentJson))
                 .ReverseMap();
         }
     }

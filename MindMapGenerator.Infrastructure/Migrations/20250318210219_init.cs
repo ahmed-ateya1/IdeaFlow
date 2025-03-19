@@ -165,10 +165,12 @@ namespace MindMapGenerator.Infrastructure.Migrations
                 {
                     DiagramID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContentJson = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    BaseDiagramID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -180,6 +182,11 @@ namespace MindMapGenerator.Infrastructure.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Diagrams_Diagrams_BaseDiagramID",
+                        column: x => x.BaseDiagramID,
+                        principalTable: "Diagrams",
+                        principalColumn: "DiagramID");
                 });
 
             migrationBuilder.CreateTable(
@@ -266,6 +273,11 @@ namespace MindMapGenerator.Infrastructure.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Diagrams_BaseDiagramID",
+                table: "Diagrams",
+                column: "BaseDiagramID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Diagrams_UserID",

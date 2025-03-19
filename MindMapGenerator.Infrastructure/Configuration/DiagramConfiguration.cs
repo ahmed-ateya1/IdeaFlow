@@ -33,6 +33,11 @@ namespace MindMapGenerator.Infrastructure.Configuration
                 .HasForeignKey(x => x.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasOne(x => x.BaseDiagram)
+             .WithMany(x => x.DerivedDiagrams)
+             .HasForeignKey(x => x.BaseDiagramID)
+             .OnDelete(DeleteBehavior.NoAction);
+
 
             builder.ToTable("Diagrams");
         }

@@ -130,12 +130,18 @@ namespace MindMapGenerator.Infrastructure.Migrations
                     b.Property<Guid>("DiagramID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("BaseDiagramID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ContentJson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPublic")
                         .HasColumnType("bit");
@@ -151,6 +157,8 @@ namespace MindMapGenerator.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("DiagramID");
+
+                    b.HasIndex("BaseDiagramID");
 
                     b.HasIndex("UserID");
 
@@ -334,11 +342,18 @@ namespace MindMapGenerator.Infrastructure.Migrations
 
             modelBuilder.Entity("MindMapGenerator.Core.Domain.Entities.Diagram", b =>
                 {
+                    b.HasOne("MindMapGenerator.Core.Domain.Entities.Diagram", "BaseDiagram")
+                        .WithMany("DerivedDiagrams")
+                        .HasForeignKey("BaseDiagramID")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("MindMapGenerator.Core.Domain.IdentityEntities.ApplicationUser", "User")
                         .WithMany("Diagrams")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("BaseDiagram");
 
                     b.Navigation("User");
                 });
@@ -401,6 +416,8 @@ namespace MindMapGenerator.Infrastructure.Migrations
 
             modelBuilder.Entity("MindMapGenerator.Core.Domain.Entities.Diagram", b =>
                 {
+                    b.Navigation("DerivedDiagrams");
+
                     b.Navigation("Favorites");
                 });
 

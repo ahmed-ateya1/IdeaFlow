@@ -241,24 +241,24 @@ namespace MindMapGenerator.API.Controllers
         /// <response code="400">Returned if the retrieval fails.</response>
         /// <response code="401">Returned if the user is not authenticated.</response>
         /// <response code="500">Returned if an internal server error occurs.</response>
-        [HttpGet("getUserDiagrams")]
-        [Authorize]
+        [HttpGet("getUserDiagrams/{userID}")]
+        //[Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ApiResponse>> GetUserDiagrams([FromQuery] PaginationDto pagination)
+        public async Task<ActionResult<ApiResponse>> GetUserDiagrams(Guid userID,[FromQuery] PaginationDto pagination)
         {
-            var user = await _userContext.GetCurrentUserAsync();
-            if (user == null)
-            {
-                return Unauthorized(new ApiResponse
-                {
-                    Message = "user not authenticated",
-                    StatusCode = HttpStatusCode.Unauthorized,
-                    IsSuccess = false
-                });
-            }
-            var response = await _diagramService.GetAllAsync(x => x.UserID == user.Id, pagination);
+            //var user = await _userContext.GetCurrentUserAsync();
+            //if (user == null)
+            //{
+            //    return Unauthorized(new ApiResponse
+            //    {
+            //        Message = "user not authenticated",
+            //        StatusCode = HttpStatusCode.Unauthorized,
+            //        IsSuccess = false
+            //    });
+            //}
+            var response = await _diagramService.GetAllAsync(x => x.UserID == userID, pagination);
             if (response == null)
             {
                 return BadRequest(new ApiResponse
@@ -296,7 +296,7 @@ namespace MindMapGenerator.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ApiResponse>> GetDiagrams(string title)
         {
-            var response = await _diagramService.GetAllAsync(x => x.Title.ToUpper().Contains(title.ToUpper()));
+            var response = await _diagramService.GetAllAsync(x => x.Title.ToUpper().Contains(title.ToUpper()) && x.IsPublic);
             if (response == null)
             {
                 return BadRequest(new ApiResponse

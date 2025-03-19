@@ -22,6 +22,7 @@ namespace MindMapGenerator.Core
             services.AddScoped<IFavoriteService, FavoriteService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IGeminiService, GeminiService>();
+            services.AddScoped<IGenerateDescription, GenerateDescription>();
             services.Configure<DeepSeekSettings>(configuration.GetSection("DeepSeek"));
             services.AddHttpClient<IDeepSeekService, DeepSeekService>();
 

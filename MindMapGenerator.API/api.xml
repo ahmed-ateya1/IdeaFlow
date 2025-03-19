@@ -218,7 +218,7 @@
             <response code="400">Returned if the retrieval fails.</response>
             <response code="500">Returned if an internal server error occurs.</response>
         </member>
-        <member name="M:MindMapGenerator.API.Controllers.DiagramController.GetUserDiagrams(MindMapGenerator.Core.Dtos.PaginationDto)">
+        <member name="M:MindMapGenerator.API.Controllers.DiagramController.GetUserDiagrams(System.Guid,MindMapGenerator.Core.Dtos.PaginationDto)">
             <summary>
             Retrieves a paginated list of diagrams belonging to the authenticated user.
             </summary>
