@@ -74,16 +74,6 @@ namespace MindMapGenerator.Infrastructure
             {
                 options.TokenLifespan = TimeSpan.FromHours(1);
             });
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("AllowLocalhost3000", builder =>
-            //        builder.WithOrigins("http://localhost:3000")
-            //               .AllowAnyHeader()
-            //               .AllowAnyMethod()
-            //               .AllowCredentials()
-            //               .SetIsOriginAllowed(origin => true)
-            //               .WithExposedHeaders("Set-Cookie"));
-            //});
             services.Configure<JwtDTO>(configuration.GetSection("JWT"));
 
             return services;

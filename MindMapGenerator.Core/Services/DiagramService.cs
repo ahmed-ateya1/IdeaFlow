@@ -115,7 +115,7 @@ namespace MindMapGenerator.Core.Services
             diagram.UserID = user.Id;
             diagram.User = user;
 
-            var result =  await _generateDescription.GenerateDescriptionAsync(diagram.Title);
+            var result =  await _generateDescription.GenerateDescriptionAsync(diagram.ContentJson);
             if (result != null)
             {
                 diagram.Description = result;

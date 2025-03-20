@@ -24,11 +24,13 @@ namespace MindMapGenerator.API
             {
                 options.AddPolicy("AllowSpecificOrigin",
                     builder => builder
-                        .WithOrigins("http://localhost:3000") 
+                        .WithOrigins("https://ideaflow-client.vercel.app")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowCredentials()); 
+                        .AllowCredentials());
             });
+
+
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
