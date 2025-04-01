@@ -1,4 +1,4 @@
-# IdeaFlow [live Preview](https://e-commerce-olive-iota.vercel.app/](https://ideaflow-client.vercel.app/)
+# IdeaFlow [live Preview](https://ideaflow-client.vercel.app/)
 
 IdeaFlow is a collaborative mind mapping platform that enables users to create, publish, and manage mind maps. Users can favorite mind maps, clone existing diagrams, and share their ideas seamlessly.
 
