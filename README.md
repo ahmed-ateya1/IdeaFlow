@@ -50,8 +50,8 @@ The core entities in IdeaFlow include:
    ```
 3. Configure environment variables for Identity & SMTP (email services) and AI API keys.
 
-## Contributing
-Contributions are welcome! Feel free to submit issues and pull requests to improve IdeaFlow.
+## Schema
+![Screenshot 2025-04-01 035526](https://github.com/user-attachments/assets/779b1559-f9a9-409d-9492-0f3a5d0d2ba3)
 
 ## License
 This project is licensed under the MIT License.
