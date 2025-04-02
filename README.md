@@ -1,6 +1,6 @@
 # IdeaFlow [live Preview](https://ideaflow-client.vercel.app/)
 
-IdeaFlow is a collaborative mind mapping platform that enables users to create, publish, and manage mind maps. Users can favorite mind maps, clone existing diagrams, and share their ideas seamlessly.
+IdeaFlow is a collaborative mind mapping platform that enables users to create, publish, and manage mind maps. Users can favorite mind maps, clone existing diagrams, and share their ideas seamlessly. With AI-powered capabilities, users can generate mind maps automatically using Gemini API and DeepSeek API, making idea organization faster and more intuitive.
 
 ## Features
 - **User Authentication**: Secure login and registration with identity and SMTP support (email confirmation, forgot password, reset password).
